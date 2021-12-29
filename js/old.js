@@ -1,7 +1,3 @@
-const slpBox = document.querySelector(".resultados");
-let slpPricea;
-let slpa = 'https://api.coingecko.com/api/v3/coins/smooth-love-potion'
-
 /*
 fetch('https://api.coingecko.com/api/v3/coins/smooth-love-potion')
 .then(response => response.json())
@@ -74,23 +70,3 @@ const printAddress = async () => {
 
 printAddress();
 */
-
-const slp = fetch("https://api.coingecko.com/api/v3/coins/smooth-love-potion")
-  .then((response) => response.json())
-  .then((data) => {
-    return data.market_data.current_price.usd;
-  });
-
-const printPrice = async (coin, box) => {
-  const a = await coin;
-  box.innerHTML = a;
-};
-
-printPrice(slp, slpBox);
-
-
-
-
-
-
-
