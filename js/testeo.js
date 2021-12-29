@@ -83,16 +83,7 @@ if (slpPrice.innerHTML == 'cargando...' || bcoinPrice.innerHTML == 'cargando...'
   }, 1000)
 }
 
+
 // Suma total
 
-const sumaBalances = document.querySelectorAll('.balance');
-const sumaTotal = document.querySelector('#suma-balance');
-let sumar = 0;
-let sumada = 0;
-
-function sumAll(){
-  
-}
-
-sumaTotal.innerHTML = sumada;
 
