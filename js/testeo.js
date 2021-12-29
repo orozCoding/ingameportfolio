@@ -1,92 +1,58 @@
-const slpBox = document.querySelector(".resultados");
-let slpPricea;
-let slpa = 'https://api.coingecko.com/api/v3/coins/smooth-love-potion'
+const slpPrice = document.querySelector("#slp-precio");
+const slpInput = document.querySelector("#slp-input");
+const slpBalance = document.querySelector("#slp-balance");
+let num;
 
-/*
-fetch('https://api.coingecko.com/api/v3/coins/smooth-love-potion')
-.then(response => response.json())
-.then(data => {
-  console.log(data.market_data.current_price.usd);
-  slpPrice = JSON.stringify(data.market_data.current_price.usd);
-})
-.catch(err => console.log(err));
-
-resultados.innerHTML = slpPrice;
-
-*/
-
-/*
-const cargarPrecio = async (moneda) => {
-
-  try {
-    const respuesta = await fetch(moneda)
-
-    console.log(respuesta);
-
-    const datos = await respuesta.json();
-    console.log(datos);
-    slpPrice = datos.market_data.current_price.usd.toString();
-    console.log(slpPrice);
-    resultados.innerHTML = slpPrice;
-
-  } catch (error) {
-    console.log(error);
-  }
-
-}
-*/
-
-/*
-async function cargarPrecio(moneda, print) {
-
-  try {
-      await fetch(moneda)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data.market_data.current_price.usd.toString());
-      resultados.innerHTML = data.market_data.current_price.usd.toString();
-    return data.market_data.current_price.usd.toString();
-    })
-  } catch (error) {
-    console.log(error);
-  }
-
-}
-
-
-slpPrice = cargarPrecio(slp);
-
-console.log(`El precio de esto es ${slpPrice}`)
-
-*/
-
-/*
-const address = fetch("https://jsonplaceholder.typicode.com/users/1")
-  .then((response) => response.json())
-  .then((user) => {
-    return user.address;
-  });
-
-const printAddress = async () => {
-  const a = await address;
-  console.log(a);
-};
-
-printAddress();
-*/
-
-const slp = fetch("https://api.coingecko.com/api/v3/coins/smooth-love-potion")
+let slp = fetch("https://api.coingecko.com/api/v3/simple/price?ids=smooth-love-potion&vs_currencies=usd")
   .then((response) => response.json())
   .then((data) => {
-    return data.market_data.current_price.usd;
+    return data['smooth-love-potion']['usd'];
   });
 
-const printPrice = async (coin, box) => {
-  const a = await coin;
-  box.innerHTML = a;
+let bcoin = fetch("https://api.coingecko.com/api/v3/simple/price?ids=bomber-coin&vs_currencies=usd")
+  .then((response) => response.json())
+  .then((data) => {
+    return data['bomber-coin']['usd'];
+  });
+
+async function printPrice(token, box) {
+  box.innerHTML = 'cargando...';
+  const a = await token;
+  box.innerHTML = Number(a);
 };
 
-printPrice(slp, slpBox);
+printPrice(slp, slpPrice);
+
+slpInput.addEventListener('input', () => {
+  num = slpPrice.innerHTML * slpInput.value;
+  slpBalance.innerHTML = '$' + Math.round(((num) + Number.EPSILON) * 100) / 100;
+  localStorage.setItem('slp-input', slpInput.value);
+  localStorage.setItem('slp-balance', slpBalance.innerHTML);
+})
+
+function cargarDatos() {
+  if (localStorage.getItem('slp-input')) {
+    slpInput.value = localStorage.getItem('slp-input');
+    num = slpPrice.innerHTML * slpInput.value;
+    slpBalance.innerHTML = '$' + Math.round(((num) + Number.EPSILON) * 100) / 100;
+  }
+}
+
+cargarDatos();
+
+while (slpBalance.innerHTML == '$NaN') {
+  slpBalance.innerHTML = 'cargando...';
+  setInterval(cargarDatos, 500);
+}
+
+
+
+
+
+
+
+
+
 
 
 
