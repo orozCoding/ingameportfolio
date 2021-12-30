@@ -148,6 +148,8 @@ function resetAll(){
   slpBalance.innerHTML = 'Ingresa tus tokens';
   bcoinBalance.innerHTML = 'Ingresa tus tokens';
   atlasBalance.innerHTML = 'Ingresa tus tokens';
+  sumaBalance.innerHTML = '$0';
+  localStorage.clear();
 }
 
 btnReset.addEventListener('click', resetAll);
