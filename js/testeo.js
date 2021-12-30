@@ -7,6 +7,7 @@ const bcoinBalance = document.querySelector("#bcoin-balance");
 const atlasPrice = document.querySelector("#atlas-precio");
 const atlasInput = document.querySelector("#atlas-input");
 const atlasBalance = document.querySelector("#atlas-balance");
+const sumaBalance = document.querySelector('#suma-balance');
 let num;
 
 let slpData = fetch("https://api.coingecko.com/api/v3/simple/price?ids=smooth-love-potion&vs_currencies=usd")
@@ -42,17 +43,19 @@ function updatePrice(price, input, balance, label) {
   balance.innerHTML = '$' + Math.round(((num) + Number.EPSILON) * 100) / 100;
   localStorage.setItem(`${label}-input`, input.value);
   localStorage.setItem(`${label}-balance`, balance.innerHTML);
+  localStorage.setItem(`${label}Sum`, num);
+  updateTotalBalance()
 }
 
-slpInput.addEventListener('input', () => {
+slpInput.addEventListener('keyup', () => {
   updatePrice(slpPrice, slpInput, slpBalance, 'slp');
 });
 
-bcoinInput.addEventListener('input', () => {
+bcoinInput.addEventListener('keyup', () => {
   updatePrice(bcoinPrice, bcoinInput, bcoinBalance, 'bcoin');
 });
 
-atlasInput.addEventListener('input', () => {
+atlasInput.addEventListener('keyup', () => {
   updatePrice(atlasPrice, atlasInput, atlasBalance, 'atlas');
 });
 
@@ -83,7 +86,21 @@ if (slpPrice.innerHTML == 'cargando...' || bcoinPrice.innerHTML == 'cargando...'
   }, 1000)
 }
 
+function cargarTotalBalance(){
+  if (localStorage.getItem(`totalBalance`)) {
+    sumaBalance.innerHTML = Number(localStorage.getItem(`totalBalance`));
+  }
+}
+
+cargarTotalBalance();
 
 // Suma total
 
-
+function updateTotalBalance(){
+let slpSum = Number(localStorage.getItem('slpSum'));
+let bcoinSum =  Number(localStorage.getItem('bcoinSum'));
+let atlasSum =  Number(localStorage.getItem('atlasSum'));
+let totalBalance = slpSum + bcoinSum + atlasSum;
+localStorage.setItem('totalBalance', totalBalance);
+sumaBalance.innerHTML = totalBalance;
+}
