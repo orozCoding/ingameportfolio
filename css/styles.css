@@ -59,5 +59,21 @@ input {
 }
 
 .coin-title {
-  color:red;
+  font-weight: bold;
+}
+
+#btn-reset {
+  padding: 5px 30px 5px 30px;
+}
+
+#suma-title {
+  font-weight: bold;
+}
+
+
+/* footer */
+
+footer {
+  padding-top: 30px;
+  font-size: 10px;
 }
