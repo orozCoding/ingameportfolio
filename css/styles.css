@@ -62,8 +62,10 @@ input {
   font-weight: bold;
 }
 
-#btn-reset {
-  padding: 5px 30px 5px 30px;
+#btn-reset,
+#btn-refresh {
+  padding: 5px 0 5px 0;
+  width: 100px;
 }
 
 #suma-title {
