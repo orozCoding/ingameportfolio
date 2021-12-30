@@ -105,3 +105,5 @@ let totalBalance = slpSum + bcoinSum + atlasSum;
 localStorage.setItem('totalBalance', totalBalance);
 sumaBalance.innerHTML = '$' + totalBalance.toFixed(2);
 }
+
+// remove wheel on inputs
