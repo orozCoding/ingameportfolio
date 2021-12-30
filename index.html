@@ -1,20 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>In-game portfolio</title>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
-  
-  <div id="slp-titulo" class="titulo">SLP</div>
-  <div id="slp-section" class="section">Precio USD</div>
-  <div id="slp-precio" class="precio"></div>
-  <input id="slp-input" type="number">
-  <div id="slp-balance" class="balance">Ingresa tu saldo</div>
+
+  <section id="headline">
+    <h1 id="h-title">In-Game Portfolio</h1>
+  </section>
+
+
+  <section id="coins-container" class="d-flex">
+    <div id="slp-container" class="coin-container d-flex">
+      <div id="slp-titulo" class="coin-title">SLP</div>
+      <div id="slp-section" class="coin-usd">Precio USD:</div>
+      <div id="slp-precio" class="coin-precio"></div>
+      <input id="slp-input" class="coin-input" type="number" onwheel="this.blur()">
+      <div id="slp-balance" class="coin-balance">Ingresa tus tokens</div>
+    </div>
+
+    <div id="bcoin-container" class="coin-container d-flex">
+      <div id="bcoin-titulo" class="coin-title">BCOIN</div>
+      <div id="bcoin-section" class="coin-usd">Precio USD:</div>
+      <div id="bcoin-precio" class="coin-precio"></div>
+      <input id="bcoin-input" class="coin-input" type="number" onwheel="this.blur()">
+      <div id="bcoin-balance" class="coin-balance">Ingresa tus tokens</div>
+    </div>
+
+    <div id="atlas-container" class="coin-container d-flex">
+      <div id="atlas-titulo" class="coin-title">ATLAS</div>
+      <div id="atlas-section" class="coin-usd">Precio USD:</div>
+      <div id="atlas-precio" class="coin-precio"></div>
+      <input id="atlas-input" class="coin-input" type="number" onwheel="this.blur()">
+      <div id="atlas-balance" class="coin-balance">Ingresa tus tokens</div>
+    </div>
+
+    <div id="suma-container">
+      <div id="suma-title">Balance total</div>
+      <div id="suma-balance">$0</div>
+    </div>
+
+    <button id="btn-reset" type="button">reset</button>
+  </section>
+
+  <footer class="d-flex">
+    <p>Made by orozCoding</p>
+    <p>alpha 0.0.1</p>
+  </footer>
 
   <script type="application/javascript" src="js/app.js"></script>
   <script type="application/javascript" src="js/testeo.js"></script>
 </body>
+
 </html>
