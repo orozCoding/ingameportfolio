@@ -113,10 +113,6 @@ if (localStorage.getItem('bcoin-input')) {
 };
 
 
-
-
-
-
 function cargarTotalBalance() {
   if (localStorage.getItem(`totalBalance`)) {
     let tempBalance = Number(localStorage.getItem(`totalBalance`));
@@ -153,3 +149,11 @@ function resetAll(){
 }
 
 btnReset.addEventListener('click', resetAll);
+
+// refresh button
+
+const btnRefresh = document.getElementById('btn-refresh');
+
+btnRefresh.addEventListener('click', () => {
+  location.reload('Refresh');
+})
