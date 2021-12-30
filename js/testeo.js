@@ -75,18 +75,49 @@ cargarDatos('bcoin', bcoinInput, bcoinPrice, bcoinBalance);
 cargarDatos('atlas', atlasInput, atlasPrice, atlasBalance);
 
 
-if (slpPrice.innerHTML == 'cargando...' || bcoinPrice.innerHTML == 'cargando...' || atlasPrice.innerHTML == 'cargando...') {
-  slpBalance.innerHTML = 'calculando...'
-  bcoinBalance.innerHTML = 'calculando...'
-  atlasBalance.innerHTML = 'calculando...'
-  setTimeout(() => {
-    cargarDatos('slp', slpInput, slpPrice, slpBalance);
-    cargarDatos('bcoin', bcoinInput, bcoinPrice, bcoinBalance);
-    cargarDatos('atlas', atlasInput, atlasPrice, atlasBalance);
-  }, 2000)
-}
 
-function cargarTotalBalance(){
+
+if (localStorage.getItem('slp-input')) {
+  if (slpPrice.innerHTML == 'cargando...') {
+    slpBalance.innerHTML = 'calculando...'
+    setTimeout(() => {
+      cargarDatos('slp', slpInput, slpPrice, slpBalance);
+    }, 2000)
+  }
+} else {
+  slpBalance.innerHTML = 'Ingresa tus tokens';
+};
+
+
+if (localStorage.getItem('atlas-input')) {
+  if (atlasPrice.innerHTML == 'cargando...') {
+    atlasBalance.innerHTML = 'calculando...'
+    setTimeout(() => {
+      cargarDatos('atlas', atlasInput, atlasPrice, atlasBalance);
+    }, 2000)
+  }
+} else {
+  slpBalance.innerHTML = 'Ingresa tus tokens';
+};
+
+
+if (localStorage.getItem('bcoin-input')) {
+  if (bcoinPrice.innerHTML == 'cargando...') {
+    bcoinBalance.innerHTML = 'calculando...'
+    setTimeout(() => {
+      cargarDatos('bcoin', bcoinInput, bcoinPrice, bcoinBalance);
+    }, 2000)
+  }
+} else {
+  bcoinBalance.innerHTML = 'Ingresa tus tokens';
+};
+
+
+
+
+
+
+function cargarTotalBalance() {
   if (localStorage.getItem(`totalBalance`)) {
     let tempBalance = Number(localStorage.getItem(`totalBalance`));
     sumaBalance.innerHTML = '$' + tempBalance.toFixed(2);
@@ -97,13 +128,26 @@ cargarTotalBalance();
 
 // Suma total
 
-function updateTotalBalance(){
-let slpSum = Number(localStorage.getItem('slpSum'));
-let bcoinSum =  Number(localStorage.getItem('bcoinSum'));
-let atlasSum =  Number(localStorage.getItem('atlasSum'));
-let totalBalance = slpSum + bcoinSum + atlasSum;
-localStorage.setItem('totalBalance', totalBalance);
-sumaBalance.innerHTML = '$' + totalBalance.toFixed(2);
+function updateTotalBalance() {
+  let slpSum = Number(localStorage.getItem('slpSum'));
+  let bcoinSum = Number(localStorage.getItem('bcoinSum'));
+  let atlasSum = Number(localStorage.getItem('atlasSum'));
+  let totalBalance = slpSum + bcoinSum + atlasSum;
+  localStorage.setItem('totalBalance', totalBalance);
+  sumaBalance.innerHTML = '$' + totalBalance.toFixed(2);
 }
 
-// remove wheel on inputs
+// reset button
+
+const btnReset = document.getElementById('btn-reset');
+
+function resetAll(){
+  slpInput.value = null;
+  bcoinInput.value = null;
+  atlasInput.value = null;
+  slpBalance.innerHTML = 'Ingresa tus tokens';
+  bcoinBalance.innerHTML = 'Ingresa tus tokens';
+  atlasBalance.innerHTML = 'Ingresa tus tokens';
+}
+
+btnReset.addEventListener('click', resetAll);
