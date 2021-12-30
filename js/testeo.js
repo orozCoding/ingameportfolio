@@ -83,7 +83,7 @@ if (slpPrice.innerHTML == 'cargando...' || bcoinPrice.innerHTML == 'cargando...'
     cargarDatos('slp', slpInput, slpPrice, slpBalance);
     cargarDatos('bcoin', bcoinInput, bcoinPrice, bcoinBalance);
     cargarDatos('atlas', atlasInput, atlasPrice, atlasBalance);
-  }, 1000)
+  }, 2000)
 }
 
 function cargarTotalBalance(){
