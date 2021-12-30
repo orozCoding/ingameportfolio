@@ -88,7 +88,8 @@ if (slpPrice.innerHTML == 'cargando...' || bcoinPrice.innerHTML == 'cargando...'
 
 function cargarTotalBalance(){
   if (localStorage.getItem(`totalBalance`)) {
-    sumaBalance.innerHTML = Number(localStorage.getItem(`totalBalance`));
+    let tempBalance = Number(localStorage.getItem(`totalBalance`));
+    sumaBalance.innerHTML = '$' + tempBalance.toFixed(2);
   }
 }
 
@@ -102,5 +103,5 @@ let bcoinSum =  Number(localStorage.getItem('bcoinSum'));
 let atlasSum =  Number(localStorage.getItem('atlasSum'));
 let totalBalance = slpSum + bcoinSum + atlasSum;
 localStorage.setItem('totalBalance', totalBalance);
-sumaBalance.innerHTML = totalBalance;
+sumaBalance.innerHTML = '$' + totalBalance.toFixed(2);
 }
