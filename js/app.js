@@ -302,4 +302,3 @@ if (localStorage.getItem('atlas-check') == 'yes') {
   };
 
 };
-
