@@ -72,6 +72,15 @@ input {
   font-weight: bold;
 }
 
+#checkers-container {
+  flex-direction: row;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.coin-checker {
+  min-width: 60px;
+}
 
 /* footer */
 

@@ -75,8 +75,6 @@ cargarDatos('bcoin', bcoinInput, bcoinPrice, bcoinBalance);
 cargarDatos('atlas', atlasInput, atlasPrice, atlasBalance);
 
 
-
-
 if (localStorage.getItem('slp-input')) {
   if (slpPrice.innerHTML == 'cargando...') {
     slpBalance.innerHTML = 'calculando...'
@@ -157,3 +155,5 @@ const btnRefresh = document.getElementById('btn-refresh');
 btnRefresh.addEventListener('click', () => {
   location.reload('Refresh');
 })
+
+
