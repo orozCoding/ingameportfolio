@@ -114,14 +114,8 @@ function updateTotalBalance() {
 const btnReset = document.getElementById('btn-reset');
 
 function resetAll() {
-  slpInput.value = null;
-  bcoinInput.value = null;
-  atlasInput.value = null;
-  slpBalance.innerHTML = 'Ingresa tus tokens';
-  bcoinBalance.innerHTML = 'Ingresa tus tokens';
-  atlasBalance.innerHTML = 'Ingresa tus tokens';
-  sumaBalance.innerHTML = '$0';
   localStorage.clear();
+  location.reload();
 }
 
 btnReset.addEventListener('click', resetAll);
