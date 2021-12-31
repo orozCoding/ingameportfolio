@@ -2,7 +2,7 @@
 let num;
 
 async function printPrice(token, box) {
-  box.innerHTML = 'cargando...';
+  box.innerHTML = 'loading...';
   const a = await token;
   box.innerHTML = Number(a);
 };
@@ -67,26 +67,26 @@ btnRefresh.addEventListener('click', () => {
 
 const slp = {
   content: `<div id="slp-titulo" class="coin-title">SLP</div>
-  <div id="slp-section" class="coin-usd">Precio USD:</div>
+  <div id="slp-section" class="coin-usd">Price in USD:</div>
   <div class="coin-price-container">$<div id="slp-precio" class="coin-precio"></div></div>
   <input id="slp-input" class="coin-input" type="number" onwheel="this.blur()">
-  <div id="slp-balance" class="coin-balance">Ingresa tus tokens</div>`
+  <div id="slp-balance" class="coin-balance">Enter your tokens</div>`
 };
 
 const bcoin = {
   content: `<div id="bcoin-titulo" class="coin-title">BCOIN</div>
-  <div id="bcoin-section" class="coin-usd">Precio USD:</div>
+  <div id="bcoin-section" class="coin-usd">Price in USD:</div>
   <div class="coin-price-container">$<div id="bcoin-precio" class="coin-precio"></div></div>
   <input id="bcoin-input" class="coin-input" type="number" onwheel="this.blur()">
-  <div id="bcoin-balance" class="coin-balance">Ingresa tus tokens</div>`
+  <div id="bcoin-balance" class="coin-balance">Enter your tokens</div>`
 };
 
 const atlas = {
   content: `<div id="atlas-titulo" class="coin-title">ATLAS</div>
-  <div id="atlas-section" class="coin-usd">Precio USD:</div>
+  <div id="atlas-section" class="coin-usd">Price in USD:</div>
   <div class="coin-price-container">$<div id="atlas-precio" class="coin-precio"></div></div>
   <input id="atlas-input" class="coin-input" type="number" onwheel="this.blur()">
-  <div id="atlas-balance" class="coin-balance">Ingresa tus tokens</div>`
+  <div id="atlas-balance" class="coin-balance">Enter your tokens</div>`
 };
 
 // coins containers and pre-setting
@@ -162,14 +162,14 @@ if (localStorage.getItem('slp-check') == 'yes') {
   cargarTotalBalance();
 
   if (localStorage.getItem('slp-input')) {
-    if (slpPrice.innerHTML == 'cargando...') {
-      slpBalance.innerHTML = 'calculando...'
+    if (slpPrice.innerHTML == 'loading...') {
+      slpBalance.innerHTML = 'calculating...'
       setTimeout(() => {
         cargarDatos('slp', slpInput, slpPrice, slpBalance);
       }, 2000)
     }
   } else {
-    slpBalance.innerHTML = 'Ingresa tus tokens';
+    slpBalance.innerHTML = 'Enter your tokens';
   };
 
 };
@@ -226,14 +226,14 @@ if (localStorage.getItem('bcoin-check') == 'yes') {
   cargarTotalBalance();
 
   if (localStorage.getItem('bcoin-input')) {
-    if (bcoinPrice.innerHTML == 'cargando...') {
-      bcoinBalance.innerHTML = 'calculando...'
+    if (bcoinPrice.innerHTML == 'loading...') {
+      bcoinBalance.innerHTML = 'calculating...'
       setTimeout(() => {
         cargarDatos('bcoin', bcoinInput, bcoinPrice, bcoinBalance);
       }, 2000)
     }
   } else {
-    bcoinBalance.innerHTML = 'Ingresa tus tokens';
+    bcoinBalance.innerHTML = 'Enter your tokens';
   };
 
 };
@@ -291,14 +291,14 @@ if (localStorage.getItem('atlas-check') == 'yes') {
   cargarTotalBalance();
 
   if (localStorage.getItem('atlas-input')) {
-    if (atlasPrice.innerHTML == 'cargando...') {
-      atlasBalance.innerHTML = 'calculando...'
+    if (atlasPrice.innerHTML == 'loading...') {
+      atlasBalance.innerHTML = 'calculating...'
       setTimeout(() => {
         cargarDatos('atlas', atlasInput, atlasPrice, atlasBalance);
       }, 2000)
     }
   } else {
-    atlasBalance.innerHTML = 'Ingresa tus tokens';
+    atlasBalance.innerHTML = 'Enter your tokens';
   };
 
 };
