@@ -75,8 +75,6 @@ cargarDatos('bcoin', bcoinInput, bcoinPrice, bcoinBalance);
 cargarDatos('atlas', atlasInput, atlasPrice, atlasBalance);
 
 
-
-
 if (localStorage.getItem('slp-input')) {
   if (slpPrice.innerHTML == 'cargando...') {
     slpBalance.innerHTML = 'calculando...'
@@ -157,3 +155,34 @@ const btnRefresh = document.getElementById('btn-refresh');
 btnRefresh.addEventListener('click', () => {
   location.reload('Refresh');
 })
+
+
+// creting objects with info
+
+const slp = {
+  content: `<div id="slp-titulo" class="coin-title">SLP</div>
+  <div id="slp-section" class="coin-usd">Precio USD:</div>
+  <div id="slp-precio" class="coin-precio"></div>
+  <input id="slp-input" class="coin-input" type="number" onwheel="this.blur()">
+  <div id="slp-balance" class="coin-balance">Ingresa tus tokens</div>`
+};
+
+// <div id="slp-container" class="coin-container d-flex">
+
+  const coinsContainer = document.getElementById('coins-container');
+
+  const cbSlp = document.getElementById('cb-slp');
+
+  cbSlp.addEventListener('change', () => {
+    if(this.checked){
+      let coinSlp = document.createElement('div');
+      coinSlp.setAttribute('id', 'slp-container');
+      coinSlp.classList.add('coin-container d-flex');
+      coinSlp.innerHTML = slp.content;
+      coinsContainer.appendChild(coinSlp);
+    }
+  })
+
+
+
+
