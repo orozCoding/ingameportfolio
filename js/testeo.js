@@ -140,7 +140,7 @@ btnRefresh.addEventListener('click', () => {
 const slp = {
   content: `<div id="slp-titulo" class="coin-title">SLP</div>
   <div id="slp-section" class="coin-usd">Precio USD:</div>
-  <div>$<div id="slp-precio" class="coin-precio"></div></div>
+  <div class="coin-price-container">$<div id="slp-precio" class="coin-precio"></div></div>
   <input id="slp-input" class="coin-input" type="number" onwheel="this.blur()">
   <div id="slp-balance" class="coin-balance">Ingresa tus tokens</div>`
 };

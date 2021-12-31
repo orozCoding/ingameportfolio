@@ -62,6 +62,11 @@ input {
   font-weight: bold;
 }
 
+.coin-price-container {
+  display: flex;
+  justify-content: center;
+}
+
 #btn-reset,
 #btn-refresh {
   padding: 5px 0 5px 0;
