@@ -1,104 +1,11 @@
-const bcoinPrice = document.querySelector("#bcoin-precio");
-const bcoinInput = document.querySelector("#bcoin-input");
-const bcoinBalance = document.querySelector("#bcoin-balance");
-const atlasPrice = document.querySelector("#atlas-precio");
-const atlasInput = document.querySelector("#atlas-input");
-const atlasBalance = document.querySelector("#atlas-balance");
-const sumaBalance = document.querySelector('#suma-balance');
+// functions
 let num;
-
-
-
-let bcoinData = fetch("https://api.coingecko.com/api/v3/simple/price?ids=bomber-coin&vs_currencies=usd")
-  .then((response) => response.json())
-  .then((data) => {
-    return data['bomber-coin']['usd'];
-  });
-
-let atlasData = fetch("https://api.coingecko.com/api/v3/simple/price?ids=star-atlas&vs_currencies=usd")
-  .then((response) => response.json())
-  .then((data) => {
-    return data['star-atlas']['usd'];
-  });
 
 async function printPrice(token, box) {
   box.innerHTML = 'cargando...';
   const a = await token;
   box.innerHTML = Number(a);
 };
-
-
-printPrice(bcoinData, bcoinPrice);
-printPrice(atlasData, atlasPrice);
-
-function updatePrice(price, input, balance, label) {
-  num = price.innerHTML * input.value;
-  balance.innerHTML = '$' + Math.round(((num) + Number.EPSILON) * 100) / 100;
-  localStorage.setItem(`${label}-input`, input.value);
-  localStorage.setItem(`${label}-balance`, balance.innerHTML);
-  localStorage.setItem(`${label}Sum`, num);
-  updateTotalBalance()
-}
-
-
-bcoinInput.addEventListener('keyup', () => {
-  updatePrice(bcoinPrice, bcoinInput, bcoinBalance, 'bcoin');
-});
-
-atlasInput.addEventListener('keyup', () => {
-  updatePrice(atlasPrice, atlasInput, atlasBalance, 'atlas');
-});
-
-
-// cargar e imprimir datos
-
-function cargarDatos(label, input, price, balance) {
-  if (localStorage.getItem(`${label}-input`)) {
-    input.value = localStorage.getItem(`${label}-input`);
-    num = price.innerHTML * input.value;
-    balance.innerHTML = '$' + Math.round(((num) + Number.EPSILON) * 100) / 100;
-  }
-};
-
-
-cargarDatos('bcoin', bcoinInput, bcoinPrice, bcoinBalance);
-cargarDatos('atlas', atlasInput, atlasPrice, atlasBalance);
-
-
-if (localStorage.getItem('atlas-input')) {
-  if (atlasPrice.innerHTML == 'cargando...') {
-    atlasBalance.innerHTML = 'calculando...'
-    setTimeout(() => {
-      cargarDatos('atlas', atlasInput, atlasPrice, atlasBalance);
-    }, 2000)
-  }
-} else {
-  atlasBalance.innerHTML = 'Ingresa tus tokens';
-};
-
-
-if (localStorage.getItem('bcoin-input')) {
-  if (bcoinPrice.innerHTML == 'cargando...') {
-    bcoinBalance.innerHTML = 'calculando...'
-    setTimeout(() => {
-      cargarDatos('bcoin', bcoinInput, bcoinPrice, bcoinBalance);
-    }, 2000)
-  }
-} else {
-  bcoinBalance.innerHTML = 'Ingresa tus tokens';
-};
-
-
-function cargarTotalBalance() {
-  if (localStorage.getItem(`totalBalance`)) {
-    let tempBalance = Number(localStorage.getItem(`totalBalance`));
-    sumaBalance.innerHTML = '$' + tempBalance.toFixed(2);
-  }
-}
-
-cargarTotalBalance();
-
-// Suma total
 
 function updateTotalBalance() {
   let slpSum = Number(localStorage.getItem('slpSum'));
@@ -109,7 +16,35 @@ function updateTotalBalance() {
   sumaBalance.innerHTML = '$' + totalBalance.toFixed(2);
 }
 
-// reset button
+const sumaBalance = document.querySelector('#suma-balance');
+
+function updatePrice(price, input, balance, label) {
+  num = price.innerHTML * input.value;
+  balance.innerHTML = '$' + Math.round(((num) + Number.EPSILON) * 100) / 100;
+  localStorage.setItem(`${label}-input`, input.value);
+  localStorage.setItem(`${label}-balance`, balance.innerHTML);
+  localStorage.setItem(`${label}Sum`, num);
+  updateTotalBalance()
+};
+
+function cargarDatos(label, input, price, balance) {
+  if (localStorage.getItem(`${label}-input`)) {
+    input.value = localStorage.getItem(`${label}-input`);
+    num = price.innerHTML * input.value;
+    balance.innerHTML = '$' + Math.round(((num) + Number.EPSILON) * 100) / 100;
+  }
+};
+
+function cargarTotalBalance() {
+  if (localStorage.getItem(`totalBalance`)) {
+    let tempBalance = Number(localStorage.getItem(`totalBalance`));
+    sumaBalance.innerHTML = '$' + tempBalance.toFixed(2);
+  }
+}
+
+cargarTotalBalance();
+
+// reset btn
 
 const btnReset = document.getElementById('btn-reset');
 
@@ -128,8 +63,7 @@ btnRefresh.addEventListener('click', () => {
   location.reload('Refresh');
 })
 
-
-// creting objects with info
+// coin objects
 
 const slp = {
   content: `<div id="slp-titulo" class="coin-title">SLP</div>
@@ -139,12 +73,42 @@ const slp = {
   <div id="slp-balance" class="coin-balance">Ingresa tus tokens</div>`
 };
 
+const bcoin = {
+  content: `<div id="bcoin-titulo" class="coin-title">BCOIN</div>
+  <div id="bcoin-section" class="coin-usd">Precio USD:</div>
+  <div class="coin-price-container">$<div id="bcoin-precio" class="coin-precio"></div></div>
+  <input id="bcoin-input" class="coin-input" type="number" onwheel="this.blur()">
+  <div id="bcoin-balance" class="coin-balance">Ingresa tus tokens</div>`
+};
+
+const atlas = {
+  content: `<div id="atlas-titulo" class="coin-title">ATLAS</div>
+  <div id="atlas-section" class="coin-usd">Precio USD:</div>
+  <div class="coin-price-container">$<div id="atlas-precio" class="coin-precio"></div></div>
+  <input id="atlas-input" class="coin-input" type="number" onwheel="this.blur()">
+  <div id="atlas-balance" class="coin-balance">Ingresa tus tokens</div>`
+};
+
+// coins containers and pre-setting
+
 const coinsContainer = document.getElementById('coins-container');
 
 const cbSlp = document.getElementById('cb-slp');
-if(cbSlp.checked = false){
+if (cbSlp.checked = false) {
   localStorage.setItem('slp-check', 'no');
 };
+
+const cbBcoin = document.getElementById('cb-bcoin');
+if (cbBcoin.checked = false) {
+  localStorage.setItem('bcoin-check', 'no');
+};
+
+const cbAtlas = document.getElementById('cb-atlas');
+if (cbAtlas.checked = false) {
+  localStorage.setItem('atlas-check', 'no');
+};
+
+// slp setting
 
 cbSlp.addEventListener('change', () => {
   if (cbSlp.checked) {
@@ -164,12 +128,11 @@ cbSlp.addEventListener('change', () => {
     coinSlp.remove();
     localStorage.setItem('slp-check', 'no');
     location.reload();
-
   }
 });
 
 
-if(localStorage.getItem('slp-check') == 'yes'){
+if (localStorage.getItem('slp-check') == 'yes') {
   cbSlp.checked = true;
   let coinSlp = document.createElement('div');
   coinSlp.setAttribute('id', 'slp-container');
@@ -207,6 +170,135 @@ if(localStorage.getItem('slp-check') == 'yes'){
     }
   } else {
     slpBalance.innerHTML = 'Ingresa tus tokens';
+  };
+
+};
+
+// bcoin setting
+
+cbBcoin.addEventListener('change', () => {
+  if (cbBcoin.checked) {
+    let coinBcoin = document.createElement('div');
+    coinBcoin.setAttribute('id', 'bcoin-container');
+    coinBcoin.classList.add('coin-container', 'd-flex');
+    coinBcoin.innerHTML = bcoin.content;
+    coinsContainer.appendChild(coinBcoin);
+    localStorage.setItem('bcoin-check', 'yes');
+    location.reload();
+
+  } else {
+    localStorage.setItem('bcoin-input', null);
+    localStorage.setItem('bcoinSum', '0');
+    updateTotalBalance();
+    coinBcoin = document.getElementById('bcoin-container');
+    coinBcoin.remove();
+    localStorage.setItem('bcoin-check', 'no');
+    location.reload();
+  }
+});
+
+if (localStorage.getItem('bcoin-check') == 'yes') {
+  cbBcoin.checked = true;
+  let coinBcoin = document.createElement('div');
+  coinBcoin.setAttribute('id', 'bcoin-container');
+  coinBcoin.classList.add('coin-container', 'd-flex');
+  coinBcoin.innerHTML = bcoin.content;
+  coinsContainer.appendChild(coinBcoin);
+  localStorage.setItem('bcoin-check', 'yes');
+
+  const bcoinPrice = document.querySelector("#bcoin-precio");
+  const bcoinInput = document.querySelector("#bcoin-input");
+  const bcoinBalance = document.querySelector("#bcoin-balance");
+
+  let bcoinData = fetch("https://api.coingecko.com/api/v3/simple/price?ids=bomber-coin&vs_currencies=usd")
+    .then((response) => response.json())
+    .then((data) => {
+      return data['bomber-coin']['usd'];
+    });
+
+  printPrice(bcoinData, bcoinPrice);
+
+  bcoinInput.addEventListener('keyup', () => {
+    updatePrice(bcoinPrice, bcoinInput, bcoinBalance, 'bcoin');
+  });
+  cargarDatos('bcoin', bcoinInput, bcoinPrice, bcoinBalance);
+
+  cargarTotalBalance();
+
+  if (localStorage.getItem('bcoin-input')) {
+    if (bcoinPrice.innerHTML == 'cargando...') {
+      bcoinBalance.innerHTML = 'calculando...'
+      setTimeout(() => {
+        cargarDatos('bcoin', bcoinInput, bcoinPrice, bcoinBalance);
+      }, 2000)
+    }
+  } else {
+    bcoinBalance.innerHTML = 'Ingresa tus tokens';
+  };
+
+};
+
+// atlas setting
+
+cbAtlas.addEventListener('change', () => {
+  if (cbAtlas.checked) {
+    let coinAtlas = document.createElement('div');
+    coinAtlas.setAttribute('id', 'atlas-container');
+    coinAtlas.classList.add('coin-container', 'd-flex');
+    coinAtlas.innerHTML = atlas.content;
+    coinsContainer.appendChild(coinAtlas);
+    localStorage.setItem('atlas-check', 'yes');
+    location.reload();
+
+  } else {
+    localStorage.setItem('atlas-input', null);
+    localStorage.setItem('atlasSum', '0');
+    updateTotalBalance();
+    coinAtlas = document.getElementById('atlas-container');
+    coinAtlas.remove();
+    localStorage.setItem('atlas-check', 'no');
+    location.reload();
+  }
+});
+
+if (localStorage.getItem('atlas-check') == 'yes') {
+  cbAtlas.checked = true;
+  let coinAtlas = document.createElement('div');
+  coinAtlas.setAttribute('id', 'atlas-container');
+  coinAtlas.classList.add('coin-container', 'd-flex');
+  coinAtlas.innerHTML = atlas.content;
+  coinsContainer.appendChild(coinAtlas);
+  localStorage.setItem('atlas-check', 'yes');
+
+  const atlasPrice = document.querySelector("#atlas-precio");
+  const atlasInput = document.querySelector("#atlas-input");
+  const atlasBalance = document.querySelector("#atlas-balance");
+
+  let atlasData = fetch("https://api.coingecko.com/api/v3/simple/price?ids=star-atlas&vs_currencies=usd")
+  .then((response) => response.json())
+  .then((data) => {
+    return data['star-atlas']['usd'];
+  });
+
+  printPrice(atlasData, atlasPrice);
+
+  atlasInput.addEventListener('keyup', () => {
+    updatePrice(atlasPrice, atlasInput, atlasBalance, 'atlas');
+  });
+
+  cargarDatos('atlas', atlasInput, atlasPrice, atlasBalance);
+
+  cargarTotalBalance();
+
+  if (localStorage.getItem('atlas-input')) {
+    if (atlasPrice.innerHTML == 'cargando...') {
+      atlasBalance.innerHTML = 'calculando...'
+      setTimeout(() => {
+        cargarDatos('atlas', atlasInput, atlasPrice, atlasBalance);
+      }, 2000)
+    }
+  } else {
+    atlasBalance.innerHTML = 'Ingresa tus tokens';
   };
 
 };
