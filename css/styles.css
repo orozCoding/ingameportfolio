@@ -6,6 +6,12 @@
   box-sizing: border-box;
 }
 
+a:link, a:visited {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -18,6 +24,10 @@ body {
 .d-flex {
   display: flex;
   flex-direction: column;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 
@@ -58,6 +68,13 @@ input {
   margin-top: 20px;
 }
 
+.coin-container {
+  padding: 5px;
+  background-color: rgb(241, 241, 241);
+  border: 2px dotted black;
+  border-radius: 5%;
+}
+
 .coin-title {
   font-weight: bold;
 }
@@ -65,12 +82,25 @@ input {
 .coin-price-container {
   display: flex;
   justify-content: center;
+  font-size: 80%;
+}
+
+input {
+  border: solid 1px lightgrey;
 }
 
 #btn-reset,
 #btn-refresh {
   padding: 5px 0 5px 0;
   width: 100px;
+}
+
+#btn-reset {
+  background-color: rgb(255, 230, 230);
+}
+
+#btn-refresh {
+  background-color: rgb(220, 255, 231)
 }
 
 #suma-title {
@@ -85,6 +115,16 @@ input {
 
 .coin-checker {
   min-width: 60px;
+}
+
+/* buttons section */
+
+#balance-buttons{
+  margin-top: 15px;
+}
+
+#buttons {
+  margin-top: 15px;
 }
 
 /* footer */
