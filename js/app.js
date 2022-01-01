@@ -1,3 +1,62 @@
+// set welcome UI
+
+const welcome = {
+  content: `<div id="welcome-title" class="bold">Welcome to your portfolio of unclaimed tokens.</div>
+  <div id="welcome-msg" class="d-flex">
+    <p>On this site you will be able to keep track of the amount 
+      of unclaimed tokens you have blocked in the games 
+      and their value in USD.
+    </p>
+    <p>Please go ahead and start selecting the tokens 
+      you own and you'll be able to see the current price 
+      and the input box so you can manualy enter 
+      the ammount of tokens you're holding.
+    </p>
+  </div>`
+}
+
+const coinsContainer = document.getElementById('coins-container');
+
+if (!localStorage.getItem('old-user')) {
+  let welcomeSection = document.createElement('div');
+  welcomeSection.setAttribute('id', 'welcome');
+  welcomeSection.classList.add('d-flex');
+  welcomeSection.innerHTML = welcome.content;
+  coinsContainer.appendChild(welcomeSection);
+}; 
+
+const checkerBox = document.querySelectorAll('.checker-box');
+
+checkerBox.forEach(element => {
+  element.addEventListener('change', () => {
+    localStorage.setItem('old-user', 'yes')
+  });
+});
+
+const balanceSection = document.getElementById('balance-buttons');
+
+const sumaButtons = {
+  content: `<div id="suma-container">
+  <div id="suma-title">Total Balance</div>
+  <div id="suma-balance">$0</div>
+</div>
+<div id="buttons">
+<button id="btn-reset" type="button">reset</button>
+<button id="btn-refresh" type="button">refresh</button>
+</div>`
+};
+
+let sumaBalance;
+
+if (localStorage.getItem('old-user')) {
+  balanceSection.innerHTML = sumaButtons.content;
+  sumaBalance = document.getElementById('suma-balance');
+} else if (!localStorage.getItem('old-user')) {
+  if (document.getElementById('suma-title')) {
+    balanceSection.innerHTML = '';
+  }
+};
+
 // functions
 let num;
 
@@ -15,8 +74,6 @@ function updateTotalBalance() {
   localStorage.setItem('totalBalance', totalBalance);
   sumaBalance.innerHTML = '$' + totalBalance.toFixed(2);
 }
-
-const sumaBalance = document.querySelector('#suma-balance');
 
 function updatePrice(price, input, balance, label) {
   num = price.innerHTML * input.value;
@@ -46,22 +103,26 @@ cargarTotalBalance();
 
 // reset btn
 
-const btnReset = document.getElementById('btn-reset');
+if (document.getElementById('btn-reset')) {
+  const btnReset = document.getElementById('btn-reset');
 
-function resetAll() {
-  localStorage.clear();
-  location.reload();
-}
+  function resetAll() {
+    localStorage.clear();
+    location.reload();
+  }
 
-btnReset.addEventListener('click', resetAll);
+  btnReset.addEventListener('click', resetAll);
+};
 
 // refresh button
 
-const btnRefresh = document.getElementById('btn-refresh');
+if (document.getElementById('btn-refresh')) {
+  const btnRefresh = document.getElementById('btn-refresh');
 
-btnRefresh.addEventListener('click', () => {
-  location.reload('Refresh');
-})
+  btnRefresh.addEventListener('click', () => {
+    location.reload('Refresh');
+  })
+};
 
 // coin objects
 
@@ -90,8 +151,6 @@ const atlas = {
 };
 
 // coins containers and pre-setting
-
-const coinsContainer = document.getElementById('coins-container');
 
 const cbSlp = document.getElementById('cb-slp');
 if (cbSlp.checked = false) {
@@ -275,10 +334,10 @@ if (localStorage.getItem('atlas-check') == 'yes') {
   const atlasBalance = document.querySelector("#atlas-balance");
 
   let atlasData = fetch("https://api.coingecko.com/api/v3/simple/price?ids=star-atlas&vs_currencies=usd")
-  .then((response) => response.json())
-  .then((data) => {
-    return data['star-atlas']['usd'];
-  });
+    .then((response) => response.json())
+    .then((data) => {
+      return data['star-atlas']['usd'];
+    });
 
   printPrice(atlasData, atlasPrice);
 

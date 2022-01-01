@@ -63,6 +63,16 @@ input {
 
 /* Coins Cointainer */
 
+#welcome {
+  max-width: 450px;
+  gap: 20px;
+}
+
+#welcome-msg {
+  gap: 10px;
+  font-size: 90%;
+}
+
 #coins-container {
   max-width: 80%;
   align-items: center;
@@ -142,4 +152,8 @@ input {
 footer {
   padding-top: 20px;
   font-size: 10px;
+}
+
+.d-off {
+  display: none;
 }
