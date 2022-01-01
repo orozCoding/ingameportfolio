@@ -104,6 +104,7 @@ checkerBox.forEach( element => {
 
 
 
+
 // coin objects
 
 const slp = {
