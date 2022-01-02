@@ -33,7 +33,11 @@ checkerBox.forEach(element => {
   });
 });
 
-const balanceSection = document.getElementById('balance-buttons');
+let balanceSection;
+
+if(document.getElementById('balance-buttons')){
+  balanceSection = document.getElementById('balance-buttons');
+}
 
 const sumaButtons = {
   content: `<div id="suma-container">
@@ -49,7 +53,9 @@ const sumaButtons = {
 let sumaBalance;
 
 if (localStorage.getItem('old-user')) {
-  balanceSection.innerHTML = sumaButtons.content;
+  if(document.getElementById('balance-buttons')){
+    balanceSection.innerHTML = sumaButtons.content;
+  }
   sumaBalance = document.getElementById('suma-balance');
 } else if (!localStorage.getItem('old-user')) {
   if (document.getElementById('suma-title')) {
